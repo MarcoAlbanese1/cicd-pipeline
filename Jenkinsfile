@@ -1,10 +1,5 @@
 pipeline {
     agent any
-    
-    tools {
-        node 'Node 7.8.0'
-    }
-    
     environment {
         DOCKER_IMAGE = "${env.BRANCH_NAME == 'main' ? 'nodemain:v1.0' : 'nodedev:v1.0'}"
         APP_PORT = "${env.BRANCH_NAME == 'main' ? '3000' : '3001'}"
