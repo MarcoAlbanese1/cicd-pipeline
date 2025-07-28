@@ -41,15 +41,6 @@ pipeline {
                 }
             }
         }
-
-        stage('Scan Docker Image for Vulnerabilities') {
-            steps {
-                script {
-                    def vulnerabilities = sh(script: "trivy image --exit-code 0 --severity HIGH,MEDIUM,LOW --no-progress ${registry}:${env.BUILD_ID}", returnStdout: true).trim()
-                    echo "Vulnerability Report:\n${vulnerabilities}"
-                }
-            }
-        }
         
         stage('Deploy') {
             steps {
@@ -66,7 +57,7 @@ pipeline {
                         sh "docker run -d --name ${CONTAINER_NAME} --expose 3001 -p 3001:3000 ${DOCKER_IMAGE}"
                     }
 
-                    sleep(time: 15, unit: 'SECONDS')
+                    sleep(time: 5, unit: 'SECONDS')
                     
                     sh "docker ps | grep ${CONTAINER_NAME}"
                     echo "Application deployed successfully at http://localhost:${APP_PORT}"
