@@ -1,5 +1,10 @@
 pipeline {
     agent any
+
+    tools {
+        nodejs "node"
+    }
+    
     environment {
         DOCKER_IMAGE = "${env.BRANCH_NAME == 'main' ? 'nodemain:v1.0' : 'nodedev:v1.0'}"
         APP_PORT = "${env.BRANCH_NAME == 'main' ? '3000' : '3001'}"
@@ -17,14 +22,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the application...'
-                sh 'script scripts/build.sh'
+                sh 'npm install'
             }
         }
         
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                sh 'script scripts/test.sh'
+                sh 'npm test'
             }
         }
         
