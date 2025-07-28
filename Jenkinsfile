@@ -28,6 +28,12 @@ pipeline {
             }
         }
         
+        stage('Lint Dockerfile') {
+            steps {
+                sh "hadolint Dockerfile"
+            }
+        }
+        
         stage('Build Docker Image') {
             steps {
                 echo "Building Docker image: ${DOCKER_IMAGE}"
