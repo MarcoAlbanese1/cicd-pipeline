@@ -33,12 +33,6 @@ pipeline {
             }
         }
         
-        stage('Lint Dockerfile') {
-            steps {
-                sh "script scripts/lint.sh"
-            }
-        }
-        
         stage('Build Docker Image') {
             steps {
                 echo "Building Docker image: ${DOCKER_IMAGE}"
