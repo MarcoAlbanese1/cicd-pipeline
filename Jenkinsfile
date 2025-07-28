@@ -30,7 +30,7 @@ pipeline {
         
         stage('Lint Dockerfile') {
             steps {
-                sh "hadolint Dockerfile"
+                sh "script scripts/lint.sh"
             }
         }
         
